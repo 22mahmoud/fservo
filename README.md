@@ -1,3 +1,9 @@
+- install
+
+```sh
+npm install fservo
+```
+
 - basic example
 
 ```javascript
