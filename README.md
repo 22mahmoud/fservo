@@ -1,7 +1,7 @@
 - basic example
 
 ```javascript
-const { http, get, router, }  = require('fserv');
+const { http, get, router, }  = require('fservo');
 
 const index = get('/', ({ res }) =>
   res.send('hello, world!'),
@@ -20,7 +20,7 @@ http
 
 - using scope for nested routes
 ```javascript
-const { http, get, router, scope, post, put, remove }  = require('fserv');
+const { http, get, router, scope, post, put, remove }  = require('fservo');
 
 const getPosts = get('', ({ res }) => ...);
 const createPost = post('', ({ res, req: { body }}) => ...);
