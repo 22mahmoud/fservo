@@ -1,8 +1,19 @@
+# Fservo 
+[WIP] Fservo - a basic web framework for node
+
 - install
 
 ```sh
 npm install fservo
 ```
+
+- Features
+  - [x] framework written in functional programming
+  - [x] framework use only immutable data
+  - [x] basic http method e.g: get, put, patch, (remove=delete), post
+  - [ ] middlewares
+  - [ ] proper error handling 
+
 
 - basic example
 
