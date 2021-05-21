@@ -1,6 +1,6 @@
 {
   "name": "fservo",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "a web framework for node",
   "main": "lib/index.js",
   "scripts": {
