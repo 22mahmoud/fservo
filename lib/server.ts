@@ -1,31 +1,23 @@
-'use strict'
-
-const http = require('http');
-const qs = require('qs');
-const { 
-  find,
-  keys,
-  pipe,
-  toLower,
-  memoizeWith,
-  props,
-  join,
-  identity, 
-} = require('ramda');
-const { matchPathToRegex, parseReqBody } = require('./utils');
-const { Req } = require('./req');
-const { Res } = require('./res');
+import http from 'http';
+import qs from 'qs';
+import { URL } from 'url';
+import { find, keys, pipe, toLower, memoizeWith, props, join, identity } from 'ramda';
+import { matchPathToRegex, parseReqBody } from './utils';
+import { Req } from './req';
+import { Res } from './res';
 
 const createMemoKey = pipe(
+  // @ts-ignore
   props(['searchParams', 'urlPathname', 'method']), 
   join('_')
 )
 
+// @ts-ignore
 const getHandler = memoizeWith(identity, (router) => memoizeWith(createMemoKey , ({
   searchParams,
   urlPathname, 
   method, 
-}) => {
+}: any) => {
   const getParams = matchPathToRegex(urlPathname);
 
   const pathname = pipe(keys, find(getParams))(router);
@@ -51,13 +43,14 @@ const getHandler = memoizeWith(identity, (router) => memoizeWith(createMemoKey ,
   return { routeHandler, params, query };
 }));
 
-const Http = (ctx = {}) => {
+// @ts-ignore
+const Http = (ctx: { server: any, port: any, router: any } = {}) => {
   const { server, port, router } = ctx;
   
   return ({
     server, 
     port,
-    create: () => {
+    create: (): any => {
       const _server = http.createServer(async (req, res) => {
         const body = await parseReqBody(req);
 
@@ -79,15 +72,14 @@ const Http = (ctx = {}) => {
       return Http({ ...ctx, server: _server });
     },
 
-    routes: (fn) => Http({ ...ctx, router: fn.__extract__() }) ,
+    routes: (fn: any) => Http({ ...ctx, router: fn.__extract__() }) ,
 
-    bind: p => Http({ ...ctx, port: p }),
+    bind: (p: any) => Http({ ...ctx, port: p }),
 
-    listen: (cb = () => {}) =>
+    listen: (cb: Function) =>
       server.listen(port, () => cb({ port, server })),
   });
 }
 
-module.exports = {
-  http: Http()
-}
+// @ts-ignore
+export default Http();

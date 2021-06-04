@@ -1,9 +1,8 @@
-'use strict'
+import { ServerResponse } from "http";
+import { pipe, reduce, keys } from "ramda";
 
-const { pipe, reduce, keys } = require("ramda");
-
-const Res = (res) => Object.assign(res, {
-  set: (headers) => pipe(
+export const Res = (res: ServerResponse) => Object.assign(res, {
+  set: (headers: Record<string, string | number | readonly string[]>) => pipe(
     keys,
     reduce((acc, curr) => ({
       ...acc,
@@ -11,10 +10,11 @@ const Res = (res) => Object.assign(res, {
     }), {})
   )(headers),
 
-  status: (statusCode = 200) =>
-    Object.assign(res, { statusCode }),
+  status: (statusCode = 200) => Object.assign({}, res, {
+    statusCode,
+  }),
 
-  send: (content) => {
+  send: (content: any) => {
     if (!content) {
       res.setHeader('content-length', 0);
       return res.end();
@@ -27,7 +27,7 @@ const Res = (res) => Object.assign(res, {
       .end(content);
   },
 
-  json: (json) => {
+  json: (json: Record<any, any>) => {
     try {
       res.setHeader('Content-Type', 'application/json')
       res.write(JSON.stringify(json), 'utf-8')
@@ -36,7 +36,4 @@ const Res = (res) => Object.assign(res, {
       res.end();
     }
   }
-});
-
-
-module.exports = { Res };
+})

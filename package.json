@@ -6,7 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["node", "nodejs", "http", "web framework"],
+  "keywords": [
+    "node",
+    "nodejs",
+    "http",
+    "web framework"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/22mahmoud/fservo"
@@ -19,5 +24,11 @@
     "path-to-regexp": "^6.2.0",
     "qs": "^6.10.1",
     "ramda": "^0.27.1"
+  },
+  "devDependencies": {
+    "@types/node": "^15.12.0",
+    "@types/qs": "^6.9.6",
+    "@types/ramda": "^0.27.40",
+    "typescript": "^4.3.2"
   }
 }
